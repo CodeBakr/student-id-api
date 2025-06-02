@@ -4,7 +4,8 @@ import random
 app = Flask(__name__)
 
 import os
-API_KEY = os.environ.get("API_KEY", "")
+API_KEY = os.environ.get("API_KEY")
+
 
 def extract_initials(full_name):
     parts = full_name.strip().split()
