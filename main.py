@@ -3,8 +3,8 @@ import random
 
 app = Flask(__name__)
 
-# Define your secure API key here
-API_KEY = "b48f7c21-8ab4-46cf-9811-8ef7b14aaf98"
+import os
+API_KEY = os.environ.get("API_KEY", "")
 
 def extract_initials(full_name):
     parts = full_name.strip().split()
