@@ -3,6 +3,9 @@ import random
 
 app = Flask(__name__)
 
+# Define your secure API key here
+API_KEY = "b48f7c21-8ab4-46cf-9811-8ef7b14aaf98"
+
 def extract_initials(full_name):
     parts = full_name.strip().split()
     if len(parts) == 0:
@@ -12,6 +15,11 @@ def extract_initials(full_name):
 
 @app.route('/generate-id', methods=['POST'])
 def generate_id():
+    # 🔐 Check for API key in request headers
+    client_key = request.headers.get('x-api-key')
+    if client_key != API_KEY:
+        return jsonify({"error": "Unauthorized"}), 401
+
     data = request.get_json()
     academy_code = data.get("academy_code", "WSS").upper()
     full_name = data.get("full_name", "")
@@ -24,3 +32,4 @@ def generate_id():
 
 if __name__ == '__main__':
     app.run()
+
